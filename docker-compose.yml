@@ -1,0 +1,12 @@
+services:
+  dev_container:
+    build: .
+    volumes:
+    - /home/jacek/jetson_projects:/home/jetson/projects:rw
+    - /home/jacek/.ssh:/home/jetson/.ssh:rw
+    - /home/jacek/.vscode-server-docker:/home/jetson/.vscode-server:rw
+    - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    network_mode: host
+    environment:
+    - DISPLAY=${DISPLAY}
+
