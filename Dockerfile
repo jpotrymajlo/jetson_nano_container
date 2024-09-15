@@ -1,30 +1,8 @@
 ARG BASE_IMAGE=nvcr.io/nvidia/l4t-base:r32.7.1
 
 FROM ${BASE_IMAGE}
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/Warsaw
+COPY init_scripts/init.sh /tmp/init.sh
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    git \
-    cmake \
-    vim \
-    build-essential \
-    curl \
-    wget \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN groupadd jetson
-RUN useradd \
-    -g jetson \
-    --home-dir /home/jetson \
-    --create-home \
-    --shell /bin/bash \
-    jetson
-
-RUN mkdir /home/jetson/projects
-
-USER jetson
-
-WORKDIR /home/jetson
-
-CMD ["bash"]
-
+RUN chmod a+rx /tmp/init.sh && /tmp/init.sh
